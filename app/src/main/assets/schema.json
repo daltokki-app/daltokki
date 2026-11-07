@@ -1,0 +1,46 @@
+{
+  "packageName": "app.daltokki.drive",
+  "appDescription": "An in-car AI companion named Daltokki, a moon rabbit character, that watches for signs of driver drowsiness and helps the driver stay alert and take timely rest breaks.",
+  "version": "0.3.0",
+  "actionCalls": [
+    {
+      "type": "function",
+      "function": {
+        "component": "service",
+        "name": "START_WORD_GAME",
+        "description": "Starts a short Korean word chain game with Daltokki to help the driver stay alert while driving.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "component": "service",
+        "name": "REPORT_DROWSINESS",
+        "description": "Tells Daltokki that the driver feels sleepy so that Daltokki raises the drowsiness level and guides the driver to the nearest rest area.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "component": "service",
+        "name": "ADD_REST_STOP",
+        "description": "Finds the nearest highway rest area or drowsy driver shelter ahead in the current direction and adds it as a navigation waypoint.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  ]
+}

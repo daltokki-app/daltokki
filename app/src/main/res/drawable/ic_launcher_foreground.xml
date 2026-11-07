@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 토끼: 크림색 토끼 + 머리 위 비행 고글 + 노란 초승달 장식 (ui/components/TokkiAvatar.kt와 같은 모양) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 귀 -->
+    <path
+        android:fillColor="#FFF6EA"
+        android:pathData="M43.8,52.96 C39.04,38.68 39.04,23.04 45.16,21 C51.28,19.64 51.96,37.32 50.6,52.96 Z" />
+    <path
+        android:fillColor="#F7C1B4"
+        android:pathData="M45.16,50.24 C41.76,39.36 41.76,27.12 45.5,25.08 C49.24,24.4 49.24,38.68 48.56,50.24 Z" />
+    <path
+        android:fillColor="#FFF6EA"
+        android:pathData="M64.2,52.96 C68.96,38.68 68.96,23.04 62.84,21 C56.72,19.64 56.04,37.32 57.4,52.96 Z" />
+    <path
+        android:fillColor="#F7C1B4"
+        android:pathData="M62.84,50.24 C66.24,39.36 66.24,27.12 62.5,25.08 C58.76,24.4 58.76,38.68 59.44,50.24 Z" />
+    <!-- 머리 -->
+    <path
+        android:fillColor="#FFF6EA"
+        android:pathData="M28.84,65.2 a25.16,20.4 0 1,0 50.32,0 a25.16,20.4 0 1,0 -50.32,0 Z" />
+    <!-- 고글 끈 -->
+    <path
+        android:strokeColor="#2E2F38"
+        android:strokeWidth="3.06"
+        android:strokeLineCap="round"
+        android:pathData="M30.2,59.76 Q54,42.08 77.8,59.76" />
+    <!-- 고글 (왼쪽) -->
+    <path android:fillColor="#5E636E" android:pathData="M40.23,51.6 a6.97,6.97 0 1,0 13.94,0 a6.97,6.97 0 1,0 -13.94,0 Z" />
+    <path android:fillColor="#A3A9B3" android:pathData="M41.08,51.6 a6.12,6.12 0 1,0 12.24,0 a6.12,6.12 0 1,0 -12.24,0 Z" />
+    <path android:fillColor="#3A3F4B" android:pathData="M42.27,51.6 a4.93,4.93 0 1,0 9.86,0 a4.93,4.93 0 1,0 -9.86,0 Z" />
+    <path android:fillColor="#8CFFFFFF" android:pathData="M43.94,49.56 a1.22,1.22 0 1,0 2.44,0 a1.22,1.22 0 1,0 -2.44,0 Z" />
+    <!-- 고글 (오른쪽) -->
+    <path android:fillColor="#5E636E" android:pathData="M53.83,51.6 a6.97,6.97 0 1,0 13.94,0 a6.97,6.97 0 1,0 -13.94,0 Z" />
+    <path android:fillColor="#A3A9B3" android:pathData="M54.68,51.6 a6.12,6.12 0 1,0 12.24,0 a6.12,6.12 0 1,0 -12.24,0 Z" />
+    <path android:fillColor="#3A3F4B" android:pathData="M55.87,51.6 a4.93,4.93 0 1,0 9.86,0 a4.93,4.93 0 1,0 -9.86,0 Z" />
+    <path android:fillColor="#8CFFFFFF" android:pathData="M57.54,49.56 a1.22,1.22 0 1,0 2.44,0 a1.22,1.22 0 1,0 -2.44,0 Z" />
+    <!-- 고글 다리 -->
+    <path android:fillColor="#5E636E" android:pathData="M52.64,50.24 h2.72 v2.38 h-2.72 Z" />
+    <!-- 노란 초승달 -->
+    <path android:fillColor="#F6D77A" android:pathData="M67.6,52.96 a2.38,2.38 0 1,0 4.76,0 a2.38,2.38 0 1,0 -4.76,0 Z" />
+    <path android:fillColor="#FFF6EA" android:pathData="M68.96,51.94 a2.04,2.04 0 1,0 4.08,0 a2.04,2.04 0 1,0 -4.08,0 Z" />
+    <!-- 볼 -->
+    <path android:fillColor="#D9F7B3B0" android:pathData="M36.52,71.49 a4.42,2.55 0 1,0 8.84,0 a4.42,2.55 0 1,0 -8.84,0 Z" />
+    <path android:fillColor="#D9F7B3B0" android:pathData="M62.84,71.49 a4.42,2.55 0 1,0 8.84,0 a4.42,2.55 0 1,0 -8.84,0 Z" />
+    <!-- 눈 -->
+    <path android:fillColor="#2B2730" android:pathData="M44.89,65.88 a1.63,1.63 0 1,0 3.26,0 a1.63,1.63 0 1,0 -3.26,0 Z" />
+    <path android:fillColor="#2B2730" android:pathData="M59.85,65.88 a1.63,1.63 0 1,0 3.26,0 a1.63,1.63 0 1,0 -3.26,0 Z" />
+    <!-- 입 -->
+    <path
+        android:strokeColor="#2B2730"
+        android:strokeWidth="1.02"
+        android:strokeLineCap="round"
+        android:pathData="M52.3,72 L55.7,72" />
+</vector>

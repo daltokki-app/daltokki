@@ -1,0 +1,19 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/app/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+keystore.properties
+*.jks
+*.keystore
+
+# 내부 작업 문서 (제출 저장소에 올리지 않음: 경쟁작 분석·작업 기록)
+HANDOFF.md
+CHANGES.md
+
+.kotlin/

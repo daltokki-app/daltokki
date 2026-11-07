@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">달토끼</string>
+    <string name="notification_channel_name">주행 동반</string>
+    <string name="notification_title">달토끼가 옆자리에서 함께하고 있어요</string>
+    <string name="notification_text">피로 신호를 살피는 중</string>
+</resources>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Android Automotive OS 앱. 휴대폰에서도 테스트할 수 있도록 기본은 required=false입니다.
+        App Market에 차량 전용으로 올릴 때는 gradle.properties의 carOnly=true로 빌드하면 required=true가 됩니다.
+    -->
+    <uses-feature
+        android:name="android.hardware.type.automotive"
+        android:required="${automotiveRequired}" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.screen.portrait"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.screen.landscape"
+        android:required="false" />
+
+    <!-- AAOS 표준 Car API: 속도, 기어 -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+
+    <!-- Pleos Vehicle SDK (조회만, 제어 권한은 쓰지 않음) -->
+    <uses-permission android:name="pleos.car.permission.READ_CAR_STEERING" />   <!-- 핸들 각도 -->
+    <uses-permission android:name="pleos.car.permission.CAR_LIGHTS" />          <!-- 방향지시등 -->
+    <uses-permission android:name="pleos.car.permission.CAR_SAFETY" />          <!-- 경고등(LKA/LFA/ELK/운전자 주의) -->
+    <uses-permission android:name="pleos.car.permission.READ_ADAS_STATES" />    <!-- 주행 보조 상태 -->
+    <uses-permission android:name="pleos.car.permission.CAR_CLIMATE" />         <!-- 내기순환 상태 -->
+    <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />           <!-- 브레이크 페달(말 걸기 보류) -->
+    <uses-permission android:name="pleos.car.permission.CAR_SEATS" />           <!-- 14차: 좌석 착좌(탑승 인원 → 실내 CO₂ 추정) -->
+    <uses-permission android:name="pleos.car.permission.CONTROL_CAR_CLIMATE" /> <!-- 14차: 외기 전환(운전자가 "응" 한 뒤에만) -->
+    <!-- Pleos TextToSpeech·SpeechToText SDK (온디바이스) -->
+    <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+    <uses-permission android:name="pleos.car.permission.STT_SERVICE" />
+    <!-- Pleos NaviHelper SDK: 경유지 추가 -->
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE_SEARCH" />
+
+    <!-- 현재 위치: 가까운 휴게소·졸음쉼터 찾기 (실차 모드) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+
+    <!-- 음성 대화 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- INTERNET 권한 없음: 앱은 인터넷을 쓰지 않습니다(기록·음성 인식 모두 기기 안). Pleos SDK에 필요하면 SDK가 스스로 추가합니다 -->
+
+    <!-- 주행 중 계속 동작 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".LunaApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DalTokki">
+
+        <uses-library
+            android:name="android.car"
+            android:required="false" />
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|keyboard|keyboardHidden"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:windowSoftInputMode="adjustResize">
+            <!-- 주행 중에도 쓸 수 있도록 설계된 화면(음성 중심, 최소 표시) -->
+            <meta-data
+                android:name="distractionOptimized"
+                android:value="true" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            Gleo Interface: Gleo 음성비서가 assets/schema.json의 함수를 부르면 액션 이름으로 브로드캐스트가 옴
+            (component="service"). 결과는 APP_ACTION_RESPONSE 브로드캐스트로 돌려줌.
+        -->
+        <receiver
+            android:name=".gleo.GleoActionReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="START_WORD_GAME" />
+                <action android:name="REPORT_DROWSINESS" />
+                <action android:name="ADD_REST_STOP" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".service.CopilotService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="driver_fatigue_monitoring" />
+        </service>
+    </application>
+</manifest>
