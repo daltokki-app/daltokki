@@ -122,7 +122,9 @@ keyPassword=****
 
 ## APK 위치
 
-`apk/daltokki_release.apk` (release 빌드·출시 키 서명 후 넣음. 용량이 크면 저장소 Releases)
+`apk/Goodmate_daltokki_release.apk` (release 빌드·출시 키 서명 후 넣음. 용량이 크면 저장소 Releases)
+
+시연 영상: `docs/demo/daltokki_demo.mp4` (4분 30초, Pleos Connect 에뮬레이터 자동 시연 녹화 · 음성은 합성)
 
 ---
 
