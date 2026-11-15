@@ -2,11 +2,34 @@
 
 **졸음이 올 때 먼저 말을 걸어주는 AI 동승 친구**
 
-차량 데이터(속도·기어 + Pleos Vehicle SDK의 핸들 각도·방향지시등·브레이크·경고등·공조 상태)로 운전자의 피로 징후를 추정하고, 피로가 의심되면 AI 캐릭터 '달토끼'가 먼저 말을 겁니다. **말을 걸지 않아도 '핸들 무조작 후 급꺾음' 패턴으로 먼저 알아채고**, 대화와 끝말잇기·퀴즈로 깨어 있는지 확인하며, 그 대화의 응답 속도와 무응답 여부를 다시 피로 판정에 반영합니다. 차선 변경·제동 중에는 말을 걸지 않고, 왜 그렇게 판단했는지 근거를 화면에 보여줍니다. 차량이 운전자 주의 경고를 띄우면 바로 휴식을 권하고, 위험 단계에서는 공공데이터 휴게소 중 **같은 방향 차로**의 가까운 곳을 안내해 Pleos NaviHelper로 경로에 추가합니다. Gleo 음성비서에서도 "달토끼랑 끝말잇기", "졸려", "휴게소 들르자"로 부를 수 있습니다.
+차량 데이터(속도·기어 + Pleos Vehicle SDK의 핸들 각도·방향지시등·브레이크·경고등·공조 상태)로 운전자의 피로 징후를 추정하고, 피로가 의심되면 AI 캐릭터 '달토끼'가 먼저 말을 겁니다. **말을 걸지 않아도 '핸들 무조작 후 급꺾음' 패턴으로 먼저 알아채고**, 대화와 끝말잇기·퀴즈로 깨어 있는지 확인하며, 그 대화의 응답 속도와 무응답 여부를 다시 피로 판정에 반영합니다. 차선 변경·제동 중에는 말을 걸지 않고, 왜 그렇게 판단했는지 근거를 화면에 보여줍니다. 차량이 운전자 주의 경고를 띄우면 바로 휴식을 권하고, 위험 단계에서는 공공데이터 휴게소 중 **같은 방향 차로**의 가까운 곳을 안내해 Pleos NaviHelper로 경로에 추가합니다. Gleo 음성비서 연동(App Schema)도 구현해 두어, 출시 심사 때 승인받으면 "달토끼랑 끝말잇기", "졸려", "휴게소 들르자"로 부를 수 있습니다.
 
 - 패키지명: `app.daltokki.drive`
 - 플랫폼: Pleos Connect (Android Automotive OS 기반). 테스트용으로 휴대폰에도 설치 가능(시뮬레이션 모드)
 - 사용 Pleos SDK: Vehicle 2.3.2, NaviHelper 3.0.5, TextToSpeech 3.3.1, SpeechToText 3.3.1(온디바이스), Gleo Interface(App Schema)
+
+---
+
+## 심사용 요약
+
+> 현대자동차그룹 차량용 앱 개발 공모전 심사를 위해 공개한 저장소입니다. 심사 목적 외의 복제·배포·사용을 허락하지 않습니다 (All rights reserved).
+
+| 항목 | 내용 |
+|---|---|
+| 한 줄 소개 | 졸음이 오기 전에 먼저 알아채고 말을 걸어, 휴게소까지 데려다주는 차량용 AI 동승 친구 |
+| 다른 점 | 말을 걸기 **전에** 핸들 신호('핸들 무조작 후 급꺾음')로 먼저 알아채고, 대화·게임의 대답 속도로 다시 확인합니다 |
+| 검증 결과 | 졸음 구간에서 차량 주의 경고(DAW)보다 먼저 개입 **100%** (중앙값 **5.2분** 먼저) · 정상 주행 오탐 **0%** — 운전 습관을 바꾼 시나리오 20회 시뮬레이션, `ValidationReportTest`로 재현 |
+| 동작 확인 | **Pleos Connect Emulator v2.1.0** (Android 14 · API 34, 화면 **2560×1440 · 160dpi**)에서 실제 동작 · release APK(출시 키 서명) · 시연 영상 4분 30초 |
+| Pleos 연동 | Vehicle 2.3.2 · NaviHelper 3.0.5 · TextToSpeech/SpeechToText 3.3.1(온디바이스) · Gleo Interface App Schema(함수 3개) — [규정 준수 메모](#공모전-개발-범위-준수-메모) |
+| 품질·보안 | 자동 테스트 133개 · 인터넷 권한 없음 · 카메라 사용 없음 · 기록은 차량 안에만 · 주행 중 화면 조작 제한 |
+| APK | `apk/Goodmate_daltokki_release.apk` |
+| 시연 영상 | `docs/demo/daltokki_demo.mp4` — [구간 안내](#시연-영상-구간-안내) |
+
+**3단계로 자동 시연 보기** (운전자 대답만 대본으로 넣고, 졸음 판단은 실제 엔진이 합니다)
+
+1. Pleos Connect 에뮬레이터에 설치: `adb install -r apk/Goodmate_daltokki_release.apk`
+2. 앱을 열고 왼쪽 위 **"데모 ☰"** 버튼을 누릅니다.
+3. 패널 맨 위 **"▶ 자동 시연 · 새벽 졸음"** 을 누르면 카운트다운 뒤 새벽 고속도로 졸음 시나리오가 처음부터 끝까지 진행됩니다.
 
 ---
 
@@ -111,7 +134,8 @@ keyPassword=****
 
 | 항목 | 내용 |
 |---|---|
-| 실행 기기 | Pleos Connect Emulator (Android Automotive OS 기반 AVD), 휴대폰(시뮬레이션 모드) |
+| 실행 기기 | **Pleos Connect Emulator v2.1.0** (Android 14 · API 34 Automotive AVD), 휴대폰(시뮬레이션 모드) |
+| 화면 규격 | 에뮬레이터 **2560×1440 · 160dpi** (가로형). 앱은 1280×720dp 기준으로 설계해 큰 화면에서 자동 확대 |
 | compileSdk / targetSdk / minSdk | 35 / 34 / 28 |
 | 빌드 | Android Gradle Plugin 8.7.3, Gradle 8.14.3, Kotlin 2.0.21, JDK 17 이상 |
 | 화면 | Jetpack Compose, 가로형 차량 디스플레이 기준 |
@@ -127,6 +151,22 @@ keyPassword=****
 시연 영상: `docs/demo/daltokki_demo.mp4` (4분 30초, Pleos Connect 에뮬레이터 자동 시연 녹화 · 음성은 합성)
 
 > 영상 편집: 왼쪽 에뮬레이터 차량 상태 영역(앱 시뮬레이션과 연동되지 않아 정차 상태로 표시)은 설명 패널로 가림 · 대기 구간 배속·생략 · 강조 상자·자막·음성 추가. 오른쪽 앱 화면은 녹화 그대로입니다.
+
+### 시연 영상 구간 안내
+
+| 시각 | 장면 |
+|---|---|
+| 0:00 | 시작 카드 |
+| 0:07 | 자동 시연 시작 · 운전자별 습관 기억 · 기억하는 대화 · 출발 전 컨디션(수면 → 휴식 간격) |
+| 0:32 | 멀쩡할 때는 조용히 — 차선 변경·제동 중에는 말을 걸지 않음 |
+| 0:36 | **말 걸기 전에 먼저 알아채기** — 핸들 무조작 후 급꺾음 |
+| 0:41 | 말 걸기 = 측정 — 대답이 평소보다 느려짐 · 반응 게임(1.6초 → 2.3초 → 놓침) |
+| 1:25 | 기억 + 휴게소 추천 · 실내 CO₂ 추정 → 외기 전환(위험도 −3) |
+| 1:48 | 말놀이 게임·콤보 · 안전 행동 점수 |
+| 2:25 | 졸음 신호 누적 → **위험: 같은 방향 휴게소를 내비 경유지로** |
+| 3:00 | **차량 주의 경고보다 10.3분 먼저** 알아챈 장면 |
+| 3:09 | 휴게소 도착 · 커피냅 15분 · 보상 · 반응 2.0초 → 0.8초 |
+| 4:03 | 다시 출발(위험도 −50) · 운행 결과(별 3개 · S 등급) |
 
 ---
 
@@ -287,6 +327,8 @@ keyPassword=****
 
 ### 7. Gleo 음성비서 연동 (Gleo Interface)
 
+> 공모전 기간에는 Gleo 검토·승인을 신청할 수 없어, 아래 함수는 출시 심사 때 승인받아 켭니다. 승인 전에는 같은 기능을 앱 화면과 음성 대화로 씁니다.
+
 `app/src/main/assets/schema.json`에 함수 3개(공식 상한)를 등록했습니다. Gleo가 부르면 `GleoActionReceiver`가 받아 처리하고 7초 안에 결과(`APP_ACTION_RESPONSE`)를 돌려줍니다. 달토끼가 직접 말하므로 응답 모드는 `silent`입니다.
 
 | 함수 | 하는 일 |
@@ -383,13 +425,20 @@ app/src/nopleos/java/.../platform/PleosBridge.kt   SDK 없는 대체 구현 (ple
 |---|---|---|---|
 | Vehicle (State) 2.3.2 | 사용 가능 · **연동** | 핸들 각도, 방향지시등, 브레이크, 경고등(LKA/LFA/ELK/운전자 주의), 내기순환, 풍량·좌석 착좌 → 실내 CO₂ 추정 | `app/src/pleos/.../PleosBridge.kt` → `PleosVehicleSignals` |
 | NaviHelper 3.0.5 | 사용 가능 · **연동** | 휴게소를 경유지로 추가 | 같은 파일 → `PleosWaypointNavigator` |
-| AAOS Car API | 표준 | 속도, 기어, 주행 중 화면 제한 | `data/vehicle/CarVehicleSource.kt`, `CarConnection.kt` |
+| AAOS Car API | Android Automotive 표준 | 속도, 기어, 주행 중 화면 제한 | `data/vehicle/CarVehicleSource.kt`, `CarConnection.kt` |
 | TextToSpeech / SpeechToText 3.3.1 | 온디바이스 모드(앱 등록 불필요) · **연동** | 달토끼의 목소리, 운전자 대답 인식(응답 시간 측정). 실패하면 안드로이드 기본 음성 | `app/src/pleos/.../PleosVoice.kt` |
-| FusedLocation | 준비 중 | 안드로이드 LocationManager 사용 | `data/nav/LocationTracker.kt` |
+| FusedLocation | 사용 가능 · **2차 PT 전 전환 예정** | 지금은 안드로이드 LocationManager 사용 | `data/nav/LocationTracker.kt` |
 | Vehicle Control (공조) | **연동(실차 확인 필요)** | 외기 전환 `setHvacRecirculation(false)` · 권한 `CONTROL_CAR_CLIMATE`. 시그니처 미확인이라 리플렉션 호출, 안 되면 음성 안내 | 같은 파일 → `setFreshAir` |
-| Gleo Interface | App Schema · **연동** | 끝말잇기·졸림 신고·휴게소 경유지 (Gleo 검토 승인 후 활성화) | `assets/schema.json`, `gleo/GleoActionReceiver.kt` |
+| Gleo Interface | App Schema · **구현** (공모전 기간 승인 신청 불가 → 출시 심사 때 승인) | 끝말잇기·졸림 신고·휴게소 경유지 (승인 전에는 앱 화면·음성 대화로 같은 기능 제공) | `assets/schema.json`, `gleo/GleoActionReceiver.kt` |
 
 SDK가 없거나 권한이 막혀도 앱은 시뮬레이션·안드로이드 기본 음성·규칙 기반 응답으로 동작합니다. 코드에서 `TODO(Pleos`로 검색하면 남은 교체 지점이 나옵니다.
+
+### 공모전 개발 범위 준수 메모
+
+- **차속·기어**: Pleos Connect는 Android Automotive 기반이라, 차속·기어는 Android Automotive 표준 차량 속성(`PERF_VEHICLE_SPEED`, `GEAR_SELECTION`)으로 읽습니다. 핸들·방향지시등·브레이크·경고등·공조 등 나머지 차량 신호는 모두 Pleos Vehicle SDK를 씁니다.
+- **Gleo Interface**: App Schema(함수 3개)를 구현해 두었습니다. 공모전 기간에는 Gleo 검토·승인을 신청할 수 없으므로, 승인 전에는 같은 동작을 앱 화면·음성 대화로 제공하고 출시 심사 때 승인받아 켭니다. 앱의 핵심 기능은 Gleo 없이 모두 동작합니다.
+- **음성 인식**: 차량 마이크 음성은 Pleos SpeechToText(온디바이스)로만 처리하며 외부 서비스로 보내지 않습니다(인터넷 권한 없음).
+- **위치**: 현재는 안드로이드 기본 위치를 쓰고, 2차 PT 전에 Pleos FusedLocation SDK로 바꿀 예정입니다.
 
 ## 단위 테스트
 
@@ -415,6 +464,12 @@ SDK가 없거나 권한이 막혀도 앱은 시뮬레이션·안드로이드 기
 - `RestAreaDataTest`: 공공데이터 원본 휴게소 210곳·졸음쉼터 253곳 읽기, 같은 방향 차로 고르기(경부선 안성 휴게소·옥천 졸음쉼터 남행·북행), 기점/종점 방향 해석·오타 보정, CSV 따옴표·CP949 인코딩
 - `WorkloadAndReasonsTest`: 차선 변경·제동·급감속·큰 핸들 조작은 바쁜 순간(졸음 급꺾음은 아님), 판단 근거 문장, Gleo schema.json과 매니페스트 액션 일치
 - `SafetyFixesTest`: 핸들 없을 때 무응답 한 번으로 '위험'이 안 됨, 게임 생각 시간 분리, 개인 기준 응답 시간, 화면 단계와 말 걸기 단계 분리, 차량 주의 경고 → 위험, 방향지시등 차선 변경 제외, 시나리오의 차량 신호, 환기 제안 규칙, 끝말잇기 군말 처리, 의도 오인식 수정, 진행 방향 앞쪽 휴게소 찾기
+
+## 출처·저작권
+
+- 이 저장소의 소스·문서·영상은 공모전 심사를 위해 공개합니다. 심사 목적 외의 복제·배포·사용을 허락하지 않습니다 (All rights reserved).
+- 휴게소·졸음쉼터 데이터: 공공데이터포털(한국도로공사) — 자세한 내용은 위 "8. 휴게소·졸음쉼터 데이터" 참고
+- 시연 영상의 음성: [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx)와 Mimic 3 한국어 음성 모델(`vits-mimic3-ko_KO-kss_low`)로 합성. 이 모델은 KSS Dataset(Kyubyong Park, [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/))으로 학습되었으며, 비상업 시연 용도로만 사용했습니다. 앱 안의 목소리는 Pleos TextToSpeech를 씁니다.
 
 ## 안내
 

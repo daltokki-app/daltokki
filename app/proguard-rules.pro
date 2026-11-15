@@ -1,4 +1,4 @@
-# 루나 프렌드 드라이브 — 출시 빌드 코드 축소 규칙
+# 달토끼 — 출시 빌드 코드 축소 규칙
 
 # Pleos Connect SDK: 차량 서비스와 IPC(AIDL·Parcelable)로 통신하므로 이름을 바꾸거나 지우면 안 됨
 -keep class ai.pleos.** { *; }
